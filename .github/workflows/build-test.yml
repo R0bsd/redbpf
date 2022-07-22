@@ -13,8 +13,8 @@ on:
   pull_request:
 
 env:
-  BASE_IMAGE: ghcr.io/${{ github.repository_owner }}/foniod-build
-  REDBPF_IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/redbpf-build
+  BASE_IMAGE: ghcr.io/foniod/foniod-build
+  REDBPF_IMAGE_NAME: ghcr.io/foniod/redbpf-build
 
 jobs:
   build-on-x86_64-ubuntu-2104:
