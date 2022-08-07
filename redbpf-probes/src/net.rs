@@ -135,13 +135,14 @@ where
             let ip = match u16::from_be((*eth).h_proto as u16) as u32 {
                 ETH_P_IP => (Ip::IPv4(self.ptr_after(eth)?)),
                 ETH_P_IPV6 => (Ip::IPv6(self.ptr_after(eth)?)),
-                _t => return (Err(NetworkError::NoIPHeader)),
+                _t => return Err(NetworkError::NoIPHeader),
             };
             Ok(ip)
         }
     }
     fn transport_ipv6(&self, ipv6header: *const ipv6hdr) -> NetworkResult<Transport> {
-        let addr = ipv6header as usize + 0x40;
+        //the next header after the ipv6-header is always 40 bytes away
+        let addr = ipv6header as usize + 40;
 
         unsafe {
             match (*ipv6header).nexthdr as u32 {
